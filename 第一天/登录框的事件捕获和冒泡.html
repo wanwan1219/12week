@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box{
+            display: none;
+            width: 100%;
+            height: 100%;
+            background: #CCCCCC;
+            text-align: center;
+            border: 1px solid transparent;
+        }
+        .inner{
+            width: 300px;
+            height: 300px;
+            background: red;
+            margin: 300px auto;
+        }
+    </style>
+</head>
+<body>
+<span class="load">登陆</span>
+<div class="box">
+    <div class="inner" id="box">
+        <input  class="btn" type="button" value="X" id="box1"/>
+    </div>
+</div>
+</body>
+<script>
+function cla(a){
+    return document.getElementsByClassName(a)
+}
+    var load=cla("load")[0];
+    var box=cla("box")[0];
+    var btn=cla("btn")[0];
+    var inner=cla("inner")[0];
+    load.onclick=function(){
+        box.style.display="block"
+    };
+    btn.addEventListener("click",function(){
+        box.style.display="none";
+    },true);
+    inner.addEventListener("click",function(){
+        box.style.display="block";
+    },true);
+    box.addEventListener("click",function(){
+        box.style.display="none";
+    },true);
+
+
+
+
+
+
+    document.onclick=function(event){/*document是根元素 所以给了所有的根元素*/
+        var event=event||window.event;
+        var targetId=event.target?event.target.id:event.srcElement.id;
+        if(targetId=="box"){
+            console.log("box");
+        }
+        if(targetId=="box1"){
+            console.log("box1");
+        }
+    }
+</script>
+</html>

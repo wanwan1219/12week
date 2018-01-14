@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            width: 300px;
+            height: 300px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<div class="box">1</div>
+<div class="box">2</div>
+<div class="box">3</div>
+<div class="box">4</div>
+<div class="box">5</div>
+<div class="box">6</div>
+<div id="box"></div>
+<script>
+    function aa(){
+        console.log(arguments);
+    }
+    aa("aaa","aaaaa");
+
+    function $$(str){
+        if(!(/msie [6|7|8]/i.test(navigator.userAgent))){/*兼容ie678*/
+            return document.querySelectorAll(str);/*找到所有的名字叫str的元素*/
+        }else{
+            var kk=arguments[0].charAt(0),str1=str.substring(1);/*arguments伪数组 所传的所有的参数都存在arguments里面 成为一个伪数组 arguments[0]获取传的第一个参数*/
+            if(kk=="#"){
+                var arr1=[];
+                arr1.push(document.getElementById(str1));
+                return arr1;/*上面querySelectorAll(str)返回的都是集合 为了统一标准 让id也有下脚标 所以把他放到数组里*/
+            }else if(kk=="."){
+                if(document.getElementsByClassName){
+                    return document.getElementsByClassName(str1);
+                }else{
+                    var all=document.getElementsByTagName("*"),arr2=[];
+                    for(var i=0;i<all.length;i++){
+                        if(all[i].className===str1){
+                            arr2.push(all[i]);
+                        }
+                    }
+                    return arr2;
+                }
+            }else{
+                return document.getElementsByTagName(str);
+            }
+        }
+    }
+
+    function animate(obj,target) {
+        clearInterval(obj.timer);
+        obj.timer = setInterval(function () {
+            var leader = obj.offsetLeft;/*现在的位置*/
+            var step = (target - leader) / 10;
+            step = step > 0 ? Math.ceil(step) : Math.floor(step);
+            obj.style.left = leader + step + "px";
+            if (leader == target) {
+                clearInterval(obj.timer);
+            }
+        }, 5)
+    }
+
+    function animate0(obj,attr,target) {
+        clearInterval(obj.timer);
+        obj.timer = setInterval(function () {
+            var leader = parseInt(getCss(obj,attr));
+            var step = (target - leader) / 10;
+            step = step > 0 ? Math.ceil(step) : Math.floor(step);
+            obj.style[attr] = leader + step + "px";/*不能用.attr 否则就不是参数 而是在设置attr这个属性 需要设置为[attr]*/
+            if (leader == target) {
+                clearInterval(obj.timer);
+            }
+        }, 5)
+    }
+    function animate1(obj,json) {
+        clearInterval(obj.timer);
+        obj.timer = setInterval(function () {
+            for(var k in json){
+                var leader = parseInt(getCss(obj,k));
+                var target=parseInt(json[k]);
+                var step = (target - leader) / 10;
+                step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                obj.style[k] = leader + step + "px";
+                if (leader == target) {
+                    clearInterval(obj.timer);
+                }
+            }
+        }, 5)
+    }
+
+    function animate2(obj,json,fn) {
+        clearInterval(obj.timer);
+        obj.timer = setInterval(function () {
+            var fa=true;
+            for(var k in json){
+                var leader = parseInt(getCss(obj,k));
+                var target=json[k];
+                var step = (target - leader) / 10;
+                step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                obj.style[k] = leader + step + "px";
+                if (leader != target) {/*让每一个都到了目标值*/
+                    fa=false;
+                }
+            }
+            if(fa){
+                clearInterval(obj.timer);
+                if(fn){
+                    fn();
+                }
+            }
+        }, 5)
+    }
+
+
+    function getCss(obj,attr){
+        if(obj.currentStyle){/*获取style中的样式 只有ie678认识*/
+            return obj.currentStyle[attr];
+        }else{
+            return window.getComputedStyle(obj, null)[attr];
+        }
+    }
+</script>
+</body>
+<script>
+    var box=$$("#box")[0];
+    animate2(box,{width:400,height:500});
+//    console.log($$(".box")[3]);
+
+    function getUrlParams(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null)
+            return r[2];
+        else
+            return "";
+    }
+</script>
+</html>

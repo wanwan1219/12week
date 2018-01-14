@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .box{
+            width: 200px;
+            height: 200px;
+            background: red;
+        }
+        .box1{
+            width: 100px;
+            height: 100px;
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="box1"></div>
+</div>
+<script>
+    var box1=document.getElementsByClassName("box1")[0];
+    var box=document.getElementsByClassName("box")[0];
+//    box1.onclick=function(e){
+//        var event=e||window.event;
+//        if(event&&event.stopPropagation){
+//            event.stopPropagation();/*w3c标准*/
+//        }else{
+//            event.cancelBubble=true;/*ie678 ie浏览器*/
+//        }/*用来阻止事件捕获和冒泡*/
+//        console.log(1);
+//    };
+//    box.onclick=function(e){
+//        var event=e||window.event;
+//        if(event&&event.stopPropagation){
+//            event.stopPropagation();/*w3c标准*/
+//        }else{
+//            event.cancelBubble=true;/*ie678 ie浏览器*/
+//        }
+//        console.log(2);
+//    };
+    box.addEventListener("click",function(){
+        console.log(4);
+    },false);
+    box1.addEventListener("click",function(){
+        console.log(3);
+    },false);
+/*true 是捕获*/
+/*false 是冒泡 默认*/
+
+</script>
+</body>
+</html>

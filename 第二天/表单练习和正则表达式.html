@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+        }
+        form{
+            margin: 100px auto;
+            width: 430px;
+        }
+        fieldset{
+            width: 420px;
+            padding: 10px;
+            background: #F7F7F7;
+            border: 1px solid #CCCCCC;
+        }
+        .meter,.pro,{
+            width: 175px;
+            height: 20px;
+        }
+        .data{
+            width: 170px;
+            height: 18px;
+        }
+    </style>
+</head>
+<body>
+<!--ajax里面写 PC端的 用button
+get方式传 文件的url?name=value&name1=value1;  拼接字符串 value是变量  注意写问号?
+post方式传 send里面写name=value&name1=value1;  拼接字符串 value是变量-->
+<form action="" method="get">
+    <lable for="aaa">姓名</lable>
+    <input id="aaa" name="ccc" type="text"/>
+    <input type="submit"/>
+</form>
+<form action="a.html" method="get"><!--跳转地址 默认get-->
+    <fieldset>
+        <legend>学生档案</legend>
+        <p>姓名：</p>
+        <input type="text" placeholder="请输入姓名"/>
+        <p>手机号码：</p>
+        <input type="text"placeholder="请输入手机号码"/>
+        <p>邮箱地址：</p>
+        <label for="email">
+            <input id="email" type="email" placeholder="请输入邮箱地址"/>
+        </label>
+        <p>所属学院：</p>
+        <input type="text" list="data"/>
+        <datalist id="data">
+            <option value="JAVA">JAVA</option>
+            <option value="Script">Script</option>
+        </datalist>
+        <p>入学成绩：</p>
+        <input type="number" class="num" step="10" min="0" max="100" value="30"/>
+        <p>基础水平：</p>
+        <meter class="meter" max="100" value="60"></meter>
+        <p>入学日期：</p>
+        <input type="date" class="data" value="2017/10/04"/>
+        <p>毕业时间：</p>
+        <input type="date" class="data" value="2017/12/19"/>
+        <p>课程进度：</p>
+        <progress class="pro" max="100" value="20"></progress>
+    </fieldset>
+    <p>姓名</p>
+    <input type="text" class="name" pattern="^[\u4e00-\u9fa5]{1,6}[·]?[\u4e00-\u9fa5]{1,6}$"/><input type="button" class="submit" value="提交"/>
+    <p>电话</p>
+    <input type="text" pattern="^\d$" class="pho" maxlength="11" required="required" title="请填写正确的电话"/>
+    <input type="submit" class="submit1" value="提交"/>
+
+    <form action="">
+        <input class="tel" type="email"/><input class="tell" type="submit" value="tijiao"/>
+    </form>
+
+</form>
+</body>
+<script>
+    var reg=/1/;/*只要含有1就是true*/
+    console.log(reg.test("0"));/*false*/
+    console.log(reg.test("10"));/*true*/
+    console.log(reg.test("031"));/*true*/
+    var dian=/./;/*除了换行和回车之外的任意字符 空格也可以*/
+    console.log(dian.test("slala"));/*true*/
+    console.log(dian.test(" "));/*true*/
+    var num=/\d/;/*只要含有任意的数字*/
+    console.log(num.test("321"));/*true*/
+    console.log(num.test("3fgg21"));/*true*/
+    var num2=/\D/;/*只要含有任意的非数字*/
+    console.log(num2.test("321"));/*false*/
+    console.log(num2.test("3fgg21"));/*true*/
+    var ww=/\w/;/*含有大小字母 0-9数字 和_下划线*/
+    console.log(ww.test(" "));/*false*/
+    var WW=/\W/;/*只要不含有大小写字母 0-9数字 和_下划线*/
+    console.log(WW.test(" "));/*true*/
+    console.log(WW.test("我是1"));
+    var ss=/\s/;/*只要含有不可见字符 回车 空格 换行 table \f \r \n \t \v*/
+    console.log(ss.test("\n"));/*true*/
+    console.log(ss.test(" "));/*true*/
+    var SS=/\S/;/*只要有一个不是不可见字符 回车 空格 换行 table \f \r \n \t \v*/
+    console.log(SS.test("\n"));/*false*/
+    console.log(SS.test(" "));/*false*/
+    var jd=/[1-3]/;/*只要含有1-3的数字*/
+    var jd1=/[^1-3]/;/*只要有一个不是1-3的数字*/
+    //   ^在[]里面表示非1-3   /[^1-3]/   在p[]外面表示起始字母或数字必须是1-3  /^[1-3]/
+    console.log(/^[1-3]/.test("12"));/*true*/
+    //   $表示结尾为1-3 /[1-3]$/
+    //   /^[1-3]$/  表示开头必须为1-3 结尾也必须是1-3 并且只能有一个字符
+    var jj=/^[1-3]*$/;/*必须是1-3这三个字符 可重复性匹配0~n次*/
+    //var jj=/^[1-3]+$/;/*必须是1-3这三个字符 可重复性匹配1~n次*/
+    //var jj=/^[1-3]?$/;/*必须是1-3这三个字符 可重复性匹配0-1次 空格算0次 1算一次 11算两次*/
+    //var jj=/^[1-3]{3}$/;/*必须是1-3这三个字符 并且只能有3位*/
+    //var jj=/^[1-3]{3,}$/;/*必须是1-3这三个字符 并且最少有3位*/
+    //var jj=/^[1-3]{3,7}$/;/*必须是1-3这三个字符 并且是3~7位*/
+    //var jj=/^[\u4e00-\u9fa5$]/;/*必须全部是汉字*/
+
+    //var name1=/^[\u4e00-\u9fa5]{1,6}[·]?[\u4e00-\u9fa5]{1,6}$/;
+    var pho=/^[1][0-9]{10}$/;/*[]表示一个范围*/
+    var na=document.getElementsByClassName("name")[0];
+    var sub=document.getElementsByClassName("submit")[0];
+    var sub1=document.getElementsByClassName("submit1")[0];
+    var pho=document.getElementsByClassName("pho")[0];
+   sub.onclick=function(){
+      // var naVal=na.value;
+      /* if(name1.test(naVal)){
+           na.value="恭喜你登陆成功";
+       }else{
+           na.value="请输入正确的姓名"
+       }*/
+   };
+    sub1.onclick=function(){
+        var phoVal=pho.value;
+
+    };
+    var aaa=/^(aaa)*$/;/*()表示这一串字符*/
+    var aaa=/^(aaa|bbb)*$/;/*|表示或者 只要成立一个就可以*/
+
+
+    var qq=/^[1-9][0-9]{5,10}$/;
+    console.log(qq.test("124433437"));
+
+
+    var tel1=document.getElementsByClassName("tel")[0];
+//    console.log(tel1);
+    var tell=document.getElementsByClassName("tell")[0];
+    tel1.oninvalid=function(){
+        this.setCustomValidity("写错啦")
+    }
+
+</script>
+</html>

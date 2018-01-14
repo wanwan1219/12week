@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background: black;
+        }
+        #can{
+            background: white;
+            /*行块元素*/
+            display: block;
+            margin: 50px auto 0;
+        }
+    </style>
+</head>
+<body>
+<canvas id="can" width="800px" height="900px"></canvas><!--注意宽高不能写到style里-->
+</body>
+<script>
+    var can=document.getElementById("can");
+    var ctx=can.getContext("2d");/*做一个2d绘画*/
+
+
+
+    ctx.beginPath();/*开始第一笔*/
+    ctx.moveTo(500,100);/*起始的点*/
+    ctx.lineTo(700,250);/*线 画到 结束的点*/
+    ctx.lineTo(500,250);/*连笔 */
+    ctx.closePath();/*这笔画完了 并且连线*/
+//    ctx.stroke();/*用线填充*/
+    ctx.fill();
+
+
+/*五角星*/
+    ctx.fillStyle="red";/*填充色*/
+    ctx.strokeStyle="green";/*线的颜色*/
+    ctx.lineWidth="7";/*线的粗细*/
+    ctx.beginPath();
+    ctx.moveTo(0,120);
+    ctx.lineTo(110,120);
+    ctx.lineTo(150,0);
+    ctx.lineTo(190,120);
+    ctx.lineTo(300,120);
+    ctx.lineTo(210,185);
+    ctx.lineTo(230,300);
+    ctx.lineTo(150,220);
+    ctx.lineTo(70,300);
+    ctx.lineTo(90,185);
+    ctx.closePath();
+    ctx.stroke();
+    ctx.fill();
+
+
+    ctx.fillStyle="yellow";
+    ctx.strokeStyle="blue";
+    ctx.lineWidth="9";
+    ctx.beginPath();
+    ctx.rect(300,300,30,30);/*起点x y 宽 高*/
+    ctx.stroke();
+    ctx.fill();
+
+
+
+    ctx.strokeStyle="blue";
+    ctx.lineWidth="1";
+    ctx.beginPath();
+    ctx.arc(500,500,100,0,Math.PI*2);/*x y r 圆的起点 圆的终点 是否逆时针 起点0是时钟的3点钟*/
+    ctx.closePath();
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(460,450,20,0,Math.PI*2);
+    ctx.closePath();
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(540,450,20,0,Math.PI*2);
+    ctx.closePath();
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(500,470);
+    ctx.lineTo(515,500);
+    ctx.lineTo(485,500);
+    ctx.closePath();
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(500,500,40,Math.PI/7,Math.PI*(6/7));
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(500,528,30,0,Math.PI);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(500,540);
+    ctx.lineTo(500,553);
+    ctx.stroke();
+
+    ctx.clearRect(0,0,can.width,can.height);/*清理画布*/
+
+
+    var x= 0,y= 0,fa=true;
+    setInterval(function(){
+        ctx.clearRect(0,0,can.width,can.height);
+        /*if(x==0||y==0||fa==true){
+            fa=true;
+            x++;y++;
+        }
+        if(x==(can.width-100)||y==(can.height-100)||fa==false){
+            fa=false;
+            x--;y--;
+        }*/
+        if(x==0){
+            fa=true;
+        }else if(x==(can.width-100)||y==(can.height-100)){
+            fa=!fa;
+        }
+        if(fa){
+            x++;y++;
+        }else{
+            x--;y--;
+        }
+        ctx.beginPath();
+        ctx.rect(x,y,100,100);
+        ctx.stroke();
+        ctx.fill();
+    },10)
+</script>
+</html>

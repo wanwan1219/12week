@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form>
+    <label for="user"></label>
+    <p>用户名：</p>
+    <input type="text" name="user"  pattern="^[\u4e00-\u9fa5]{1,6}[·]?[\u4e00-\u9fa5]{1,6}$" required id="user"/>
+    <label for="tel"></label>
+    <p>手机号：</p>
+    <input type="tel" name="tel" required id="tel"  maxlength="11" />
+    <label for="password"></label>
+    <p>密码：</p>
+    <input type="password" name="pas" id="password" />
+    <input type="button" class="btn" value="提交"/>
+</form>
+</body>
+<script>
+    var btn=document.getElementsByClassName("btn")[0];
+    var tel=document.getElementById("tel");
+    var pas=document.getElementById("password");
+    var user=document.getElementById("user");
+    btn.onclick=function(){
+        var xhr=new XMLHttpRequest();
+        xhr.open("post", "aaa.php");
+        xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+        xhr.send("user=" + user.value + "&pas=" + pas.value+"&tel="+tel.value);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    var kk = xhr.responseText;
+                    if (kk == 0) {
+                        console.log(0);
+                    } else {
+                        console.log(kk);
+                    }
+                }
+            }
+        }
+    }
+</script>
+</html>
